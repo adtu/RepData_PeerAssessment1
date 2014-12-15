@@ -27,6 +27,8 @@ Plot histogram for daily total number of steps:
 ```{r}
 dailytotal <- aggregate(steps ~ date, data=activity, sum)
 hist(dailytotal$steps, col = "green", xlab = "Daily Total Steps", main = "Histogram of Daily Total Steps")
+dev.copy(png, file = "./figure/dailytotalsteps.png")
+dev.off()
 ```
 
 
@@ -45,6 +47,8 @@ Time series plot of 5-minute interval and average number of steps across all day
 ```{r}
 intervalmean <- aggregate(steps ~ interval, data=activity, mean)
 with(intervalmean, plot(interval, steps, type = "l", main = "Average Steps by 5-minute Interval"))
+dev.copy(png, file = "./figure/intervalaveragesteps.png")
+dev.off()
 ```
 
 
@@ -83,6 +87,8 @@ Plot histogram for daily total number of steps with imputed NA's:
 ```{r}
 dailytotal_imputed <- aggregate(steps ~ date, data=activity_imputed, sum)
 hist(dailytotal_imputed$steps, col = "red", xlab = "Daily Total Steps", main = "Histogram of Daily Total Steps (imputed NA's)")
+dev.copy(png, file = "./figure/dailytotalsteps_nona.png")
+dev.off()
 ```
 
 
@@ -104,6 +110,8 @@ Panel plot for 5-minute interval average number of steps for weekdays vs. weeken
 library(lattice)
 activity_imputed$date <- as.factor(ifelse(weekdays(activity_imputed$date) %in% c("Saturday","Sunday"), "weekend", "weekday")) 
 xyplot(activity_imputed$steps ~ activity_imputed$interval  | activity_imputed$date, , type = "l", xlab = "interval", ylab = "Number of steps", layout = c(1, 2))
+dev.copy(png, file = "./figure/dailytotalsteps_wkdy.png")
+dev.off()
 ```
 
 
