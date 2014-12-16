@@ -28,7 +28,7 @@ Plot histogram for daily total number of steps:
 
 
 ```r
-dailytotal <- aggregate(steps ~ date, data=activity, sum)
+dailytotal <- aggregate(steps ~ date, data=activity, sum, na.rm=TRUE)
 hist(dailytotal$steps, col = "green", xlab = "Daily Total Steps", main = "Histogram of Daily Total Steps")
 ```
 
@@ -38,6 +38,10 @@ hist(dailytotal$steps, col = "green", xlab = "Daily Total Steps", main = "Histog
 Calculate mean and median for daily total number of steps:
 
 
+```r
+stepmean <- round(mean(dailytotal$steps))
+stepmedian <- median(dailytotal$steps)
+```
 - The mean for daily total number of steps is 10766. 
 - The median for daily total number of steps is 10765. 
 
@@ -76,7 +80,6 @@ Replace missing values ("NA") with the mean of 5-minute interval:
 
 
 ```r
-intervalmean <- aggregate(steps ~ interval, data=activity, mean)
 names(intervalmean) <- c("interval", "avgsteps")
 activity_intervalmean <- merge(activity, intervalmean)
 activity_intervalmean <- activity_intervalmean[order(activity_intervalmean$date),]
